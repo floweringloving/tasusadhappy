@@ -1,0 +1,27 @@
+name: Fetch RSS Feed Daily
+
+on:
+  schedule:
+    # Chạy lúc 12:15 UTC ==> 19:15 GMT+7
+    - cron: '15 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Cấp quyền để bot có thể tự đẩy file vào repo
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Fetch RSS
+        run: |
+          curl -s https://feeds.buzzsprout.com/1891921.rss -o feed.xml
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add feed.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto update RSS feed" && git push)
