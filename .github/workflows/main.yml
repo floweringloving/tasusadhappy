@@ -17,8 +17,7 @@ jobs:
 
       - name: Fetch RSS
         run: |
-          curl -s https://feeds.buzzsprout.com/1891921.rss -o feed.xml
-
+          curl -sL -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" https://feeds.buzzsprout.com/1891921.rss -o feed.xml
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
