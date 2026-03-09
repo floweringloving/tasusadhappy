@@ -3,7 +3,7 @@ name: Fetch RSS Feed Daily
 on:
   schedule:
     # Chạy lúc 12:15 UTC ==> 19:15 GMT+7
-    - cron: '15 12 * * *'
+    - cron: '5 10 * * *'
   workflow_dispatch:
 
 jobs:
